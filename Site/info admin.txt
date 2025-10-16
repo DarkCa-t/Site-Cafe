@@ -1,5 +1,0 @@
-nome: admin
-
-email: administrador@gmail.com
-
-senha: admin123
