@@ -1,0 +1,200 @@
+/*login.css*/
+
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+  --marrom-escuro: #4b2e05;
+  --marrom-medio: #9b6b33;
+  --bege-claro: #f5e4d0;
+  --verde-principal: #04AA6D;
+  --verde-hover: #039e5a;
+  --vermelho: #8b0000;
+  --vermelho-hover: #a80000;
+}
+
+/* ===== OVERLAY ===== */
+#login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ===== CONTAINER MODAL ===== */
+.login-container {
+  background: var(--bege-claro);
+  padding: 30px 40px;
+  border-radius: 12px;
+  width: 360px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== TABS LOGIN / CADASTRO ===== */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.tabs button {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+  transition: background 0.3s, color 0.3s;
+  background: var(--bege-claro);
+  color: var(--marrom-escuro);
+}
+.tabs button.active {
+  background: var(--marrom-medio);
+  color: white;
+}
+
+/* ===== FORMULÁRIOS ===== */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== CAMPOS DE ENTRADA ===== */
+.form-login input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #fff8f0;
+  font-size: 0.95rem;
+  color: var(--marrom-escuro);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+.form-login input:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+/* ===== BOTÕES ===== */
+.form-login button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--marrom-medio);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.form-login button:hover {
+  background-color: var(--marrom-escuro);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== USUÁRIO LOGADO ===== */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--bege-claro);
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--marrom-escuro);
+  animation: fadeIn 0.3s ease;
+  /* sombra geral removida */
+}
+
+.user-info h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--marrom-escuro);
+}
+
+/* ===== SOMBRA EM CADA BLOCO ===== */
+.user-info p {
+  margin: 4px 0;
+  line-height: 1.4;
+  background: #fff8f0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.user-info strong {
+  color: var(--marrom-medio);
+  display: inline-block;
+  width: 80px;
+}
+
+/* ===== BOTÃO SAIR ===== */
+.user-info button {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--marrom-medio);
+  color: var(--bege-claro);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.user-info button:hover {
+  background-color: var(--marrom-escuro);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== BOTÃO FECHAR ===== */
+.btn-fechar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--vermelho);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-fechar:hover {
+  background: var(--vermelho-hover);
+  transform: scale(1.1);
+}
+
+/* ===== ERRO ===== */
+.error-msg {
+  color: #a5281e;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ===== ANIMAÇÃO ===== */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}

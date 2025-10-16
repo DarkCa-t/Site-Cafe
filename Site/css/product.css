@@ -1,0 +1,129 @@
+/*product.css*/
+
+/* === CONTAINER DE PRODUTOS === */
+.container-produtos {
+  padding: 40px 8%;
+  text-align: center;
+}
+
+.container-produtos h2 {
+  font-size: 1.8em;
+  color: #4b2e05; /* marrom escuro */
+  margin-bottom: 30px;
+}
+
+/* === GRID DE PRODUTOS === */
+.produtos {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+/* === CARD DE PRODUTO === */
+.produto {
+  background: #fff8f0; /* bege claro, natural */
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.produto:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+}
+
+.produto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.produto h3 {
+  color: #4b2e05; /* marrom escuro */
+  margin-bottom: 6px;
+}
+
+.produto p {
+  color: #5c3a21; /* marrom médio */
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+/* === BOTÕES E QUANTIDADE === */
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.quantity button {
+  background: #8c5e3c; /* marrom médio, consistente com hover do modal */
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.quantity button:hover {
+  background: #6b4226; /* marrom escuro */
+  transform: translateY(-2px);
+}
+
+.quantity input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #d6c4b7; /* borda marrom claro */
+  border-radius: 6px;
+  padding: 4px;
+}
+
+/* BOTÕES ADICIONAR AO CARRINHO */
+.btn-produto {
+  background: #6b4226; /* marrom escuro */
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-produto:hover {
+  background: #8c5e3c; /* marrom médio */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* BOTÃO "REMOVER" DO ADMIN */
+.btn-produto.admin {
+  background: #c0392b; /* vermelho escuro */
+}
+
+.btn-produto.admin:hover {
+  background: #a5281e;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 768px) {
+  .produtos {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .produtos {
+    grid-template-columns: 1fr;
+  }
+}

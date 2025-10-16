@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Express</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/menus.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/product.css">
+</head>
+
+<body>
+<header class="menu-principal">
+  <div class="logo">☕ Café Express</div>
+
+  <div id="admin-header" class="admin-header" style="display:none;">Administrador</div>
+
+  <nav class="menu-direito">
+    <ul>
+      <li id="login-link"><a href="#" onclick="openLogin()">Login</a></li>
+      <li id="cart-btn" onclick="openCart()">🛒 Carrinho <span id="cart-count">0</span></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+  <!-- PRODUTOS -->
+  <main class="container-produtos">
+    <h2>Nossos Produtos</h2>
+    <div id="produtos-container" class="produtos">
+      <!-- Os produtos serão carregados aqui -->
+    </div>
+  </main>
+
+  <!-- ADMIN CONTROLS -->
+  <div id="admin-controls" class="admin-controls" style="display:none;">
+    <button onclick="addProductModal()">➕ Adicionar Produto</button>
+  </div>
+  
+  <!-- MODAL DE CADASTRO / EDIÇÃO DE PRODUTO -->
+<div id="product-overlay" class="overlay" style="display: none;">
+  <div class="login-container">
+    <button class="btn-fechar" onclick="closeProductModal()">X</button>
+    <h2 id="product-modal-title" style="text-align:center;">Adicionar Produto</h2>
+
+    <form class="form-login">
+      <input type="hidden" id="product-id">
+      <input type="text" id="product-name" placeholder="Nome do produto">
+      <input type="text" id="product-description" placeholder="Descrição do produto">
+      <input type="number" id="product-price" step="0.01" placeholder="Preço (R$)">
+      <input type="text" id="product-image" placeholder="URL da imagem (opcional)">
+      <button type="button" id="product-submit-btn" onclick="submitProduct()">Cadastrar</button>
+    </form>
+  </div>
+</div>
+
+	<!-- Modal do carrinho -->
+	<div id="cart-overlay" class="overlay" style="display:none;">
+	  <div id="cart-modal" class="modal">
+		<button class="btn-fechar" onclick="closeCart()">X</button>
+		<h2>Seu Carrinho</h2>
+		<div id="cart-items"></div>
+		<h3>Total: R$ <span id="cart-total">0.00</span></h3>
+		<button id="finalize-btn" onclick="finalizeOrder()">Finalizar Pedido</button>
+	  </div>
+	</div>
+
+  <!-- LOGIN MODAL -->
+  <div id="login-overlay" class="overlay" style="display:none;">
+    <div id="login-container" class="login-container">
+		<button class="btn-fechar" onclick="closeLogin()">X</button>
+	
+      <div class="tabs">
+        <button id="tab-login" class="active" onclick="switchTab('login')">Entrar</button>
+        <button id="tab-register" onclick="switchTab('register')">Cadastrar</button>
+      </div>
+
+      <!-- FORM LOGIN -->
+      <form id="login-form" class="form-login">
+        <input id="login-email" type="email" placeholder="E-mail">
+        <input id="login-password" type="password" placeholder="Senha">
+        <p id="login-error" class="error-msg"></p>
+        <button type="button" onclick="login()">Entrar</button>
+      </form>
+
+      <!-- FORM CADASTRO -->
+      <form id="register-form" class="form-login" style="display:none;">
+        <input id="register-name" type="text" placeholder="Nome completo">
+        <input id="register-email" type="email" placeholder="E-mail">
+        <input id="register-password" type="password" placeholder="Senha (mínimo 6 caracteres)">
+        <p id="register-error" class="error-msg"></p>
+        <button type="button" onclick="registerUser()">Cadastrar</button>
+      </form>
+
+      <!-- EXIBIÇÃO DE USUÁRIO LOGADO -->
+      <div id="user-form" class="user-info" style="display:none;">
+        <h3>Informações do Usuário</h3>
+        <p><strong>Nome:</strong> <span id="user-name"></span></p>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+		<p><strong>Senha:</strong> <span id="user-password"></span></p>
+        <button onclick="logout()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- JS -->
+  <script src="js/login.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>
