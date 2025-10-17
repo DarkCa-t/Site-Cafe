@@ -1,25 +1,28 @@
 /*global.css*/
-
 /* ===== BODY E GERAL ===== */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   color: #4b2e05; /* marrom escuro */
-  background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-  background-size: cover;
+  background: #fff8f0; /* cor base para fallback */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Camada translúcida */
+/* Fundo fixo com camada translúcida */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255, 248, 240, 0.6); /* bege suave */
-  backdrop-filter: blur(6px);
+  background: 
+    linear-gradient(rgba(255, 248, 240, 0.6), rgba(255, 248, 240, 0.6)),
+    url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1920&q=80') 
+    no-repeat center center / cover;
   z-index: -1;
+  will-change: transform; /* melhora performance */
 }
 
 /* ===== MODAL E OVERLAY ===== */
@@ -109,4 +112,14 @@ body::before {
 @keyframes fadeout {
   from { bottom: 20px; opacity: 1; }
   to { bottom: 0; opacity: 0; }
+}
+
+/* ===== CORREÇÃO PARA MOBILE ===== */
+@media (max-width: 768px) {
+  body::before {
+    background-attachment: scroll; /* evita bug */
+    background-position: center top;
+    background-size: cover;
+    position: fixed; /* mantém o efeito de fundo fixo simulado */
+  }
 }
