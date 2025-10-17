@@ -2,11 +2,16 @@
    Responsável por adicionar, remover e renderizar itens do carrinho
 */
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // ======================= BLOQUEIO DE SCROLL =======================
 function disableScroll() { document.body.style.overflow = "hidden"; }
 function enableScroll() { document.body.style.overflow = ""; }
+
+// ======================= SALVAR LOCALMENTE =======================
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 // ======================= ADICIONAR AO CARRINHO =======================
 function addToCart(nome, preco, quantidade) {
@@ -19,6 +24,7 @@ function addToCart(nome, preco, quantidade) {
   if (existing) existing.quantidade += quantidade;
   else cart.push({ nome, preco, quantidade });
 
+  saveCart();
   renderCart();
   showToast(`${quantidade}x ${nome} adicionado(s) ao carrinho!`);
 }
@@ -61,12 +67,12 @@ function openCart() {
 
   cartOverlay.style.display = "flex";
   renderCart();
-  disableScroll(); // bloqueia scroll quando o carrinho estiver aberto
+  disableScroll();
 }
 
 function closeCart() {
   cartOverlay.style.display = "none";
-  enableScroll(); // libera scroll ao fechar o carrinho
+  enableScroll();
 }
 
 // ======================= FINALIZAR PEDIDO =======================
@@ -74,11 +80,16 @@ function finalizeOrder() {
   if (!cart.length) return showToast("Carrinho vazio!");
   showToast("Pedido finalizado!");
   cart = [];
+  saveCart();
   renderCart();
 }
 
 // ======================= REMOVER ITEM =======================
 function removeFromCart(index) {
   cart.splice(index, 1);
+  saveCart();
   renderCart();
 }
+
+// ======================= INICIALIZAÇÃO =======================
+window.addEventListener("load", renderCart);

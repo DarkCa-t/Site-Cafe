@@ -2,10 +2,16 @@
    Renderiza produtos e permite CRUD para o administrador
 */
 
-let produtos = [
+// === CARREGAR PRODUTOS DO LOCALSTORAGE ===
+let produtos = JSON.parse(localStorage.getItem("produtos")) || [
   { id: 1, nome: "Café Preto", descricao: "Café tradicional", preco: 5.0, quantidade: 1, imagem: "https://s2-oglobo.glbimg.com/DsK7XG8E-JwxHP8m0cQQhbxZWhs=/0x182:740x927/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2024/U/n/EJKDs3Tum4cqSVmRj67A/xicara-de-cafe-e-graos-de-cafe-d.jpg" },
   { id: 2, nome: "Chá Mate", descricao: "Chá gelado e refrescante", preco: 4.0, quantidade: 1, imagem: "https://ciclovivo.com.br/wp-content/uploads/2021/05/plantas-Brasil-cha-1024x714.jpg" },
 ];
+
+// === SALVAR NO LOCALSTORAGE ===
+function saveProdutos() {
+  localStorage.setItem("produtos", JSON.stringify(produtos));
+}
 
 // === RENDERIZAR PRODUTOS ===
 function renderProdutos() {
@@ -48,13 +54,8 @@ function decreaseQtyInput(btn) {
 }
 
 // === SCROLL LOCK ===
-function lockScroll() {
-  document.body.style.overflow = "hidden";
-}
-
-function unlockScroll() {
-  document.body.style.overflow = "auto";
-}
+function lockScroll() { document.body.style.overflow = "hidden"; }
+function unlockScroll() { document.body.style.overflow = "auto"; }
 
 // === MODAIS ===
 function addProductModal() {
@@ -68,15 +69,13 @@ function openProductModal(title, buttonText, action) {
   const btn = document.getElementById("product-submit-btn");
   btn.textContent = buttonText;
   btn.setAttribute("onclick", action);
-
-  lockScroll(); // Bloqueia o scroll ao abrir modal
+  lockScroll();
 }
 
 function closeProductModal() {
   document.getElementById("product-overlay").style.display = "none";
   clearProductForm();
-
-  unlockScroll(); // Libera o scroll ao fechar modal
+  unlockScroll();
 }
 
 // === ADICIONAR / EDITAR ===
@@ -86,6 +85,7 @@ function submitProduct() {
 
   data.id = produtos.length ? produtos[produtos.length - 1].id + 1 : 1;
   produtos.push(data);
+  saveProdutos();
   showToast("Produto adicionado com sucesso!");
   closeProductModal();
   renderProdutos();
@@ -104,7 +104,10 @@ function updateProduto(id) {
   if (!produto) return;
 
   const data = getProductFormData();
+  if (!data) return;
+
   Object.assign(produto, data);
+  saveProdutos();
   showToast("Produto atualizado com sucesso!");
   closeProductModal();
   renderProdutos();
@@ -113,6 +116,7 @@ function updateProduto(id) {
 // === REMOVER ===
 function removeProduto(id) {
   produtos = produtos.filter(p => p.id !== id);
+  saveProdutos();
   renderProdutos();
   showToast("Produto removido com sucesso!");
 }
@@ -122,12 +126,38 @@ function getProductFormData() {
   const name = getValue("product-name");
   const desc = getValue("product-description");
   const price = parseFloat(getValue("product-price"));
-  const img = getValue("product-image") || "https://via.placeholder.com/300x200?text=Produto";
+  const img = getValue("product-image") || "https://img.freepik.com/fotos-gratis/fundo-de-textura-de-papel-branco-em-branco_53876-128399.jpg";
+
+  // --- Validação de campos obrigatórios ---
+  const requiredFields = ["product-name", "product-description", "product-price"];
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove("invalid-field");
+  });
+
   if (!name || !desc || isNaN(price)) {
     showToast("Preencha todos os campos corretamente!");
+    highlightInvalidFields();
     return null;
   }
+
+  // --- Validação de preço negativo ---
+  if (price < 0) {
+    showToast("O preço não pode ser menor que zero!");
+    document.getElementById("product-price").classList.add("invalid-field");
+    return null;
+  }
+
   return { nome: name, descricao: desc, preco: price, quantidade: 1, imagem: img };
+}
+
+// === DESTACAR CAMPOS INVÁLIDOS ===
+function highlightInvalidFields() {
+  const fields = ["product-name", "product-description", "product-price"];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) el.classList.add("invalid-field");
+  });
 }
 
 function fillProductForm(prod) {
@@ -138,7 +168,11 @@ function fillProductForm(prod) {
 }
 
 function clearProductForm() {
-  ["product-name", "product-description", "product-price", "product-image"].forEach(id => setValue(id, ""));
+  ["product-name", "product-description", "product-price", "product-image"].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = "";
+    el.classList.remove("invalid-field");
+  });
 }
 
 // === UTILS ===

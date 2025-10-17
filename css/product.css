@@ -1,14 +1,15 @@
-/*product.css*/
-
 /* === CONTAINER DE PRODUTOS === */
 .container-produtos {
   padding: 40px 8%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container-produtos h2 {
   font-size: 1.8em;
-  color: #4b2e05; /* marrom escuro */
+  color: #4b2e05;
   margin-bottom: 30px;
 }
 
@@ -16,19 +17,23 @@
 .produtos {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  gap: 40px; /* espaçamento mais consistente */
   justify-items: center;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* === CARD DE PRODUTO === */
 .produto {
-  background: #fff8f0; /* bege claro, natural */
+  background: #fff8f0;
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.12);
   padding: 20px;
   width: 100%;
   max-width: 300px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .produto:hover {
@@ -45,12 +50,12 @@
 }
 
 .produto h3 {
-  color: #4b2e05; /* marrom escuro */
+  color: #4b2e05;
   margin-bottom: 6px;
 }
 
 .produto p {
-  color: #5c3a21; /* marrom médio */
+  color: #5c3a21;
   font-size: 0.95rem;
   margin-bottom: 10px;
 }
@@ -65,7 +70,7 @@
 }
 
 .quantity button {
-  background: #8c5e3c; /* marrom médio, consistente com hover do modal */
+  background: #8c5e3c;
   border: none;
   color: white;
   font-weight: bold;
@@ -76,21 +81,21 @@
 }
 
 .quantity button:hover {
-  background: #6b4226; /* marrom escuro */
+  background: #6b4226;
   transform: translateY(-2px);
 }
 
 .quantity input {
   width: 50px;
   text-align: center;
-  border: 1px solid #d6c4b7; /* borda marrom claro */
+  border: 1px solid #d6c4b7;
   border-radius: 6px;
   padding: 4px;
 }
 
 /* BOTÕES ADICIONAR AO CARRINHO */
 .btn-produto {
-  background: #6b4226; /* marrom escuro */
+  background: #6b4226;
   color: #fff;
   border: none;
   padding: 10px 18px;
@@ -101,29 +106,36 @@
 }
 
 .btn-produto:hover {
-  background: #8c5e3c; /* marrom médio */
+  background: #8c5e3c;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* BOTÃO "REMOVER" DO ADMIN */
 .btn-produto.admin {
-  background: #c0392b; /* vermelho escuro */
+  background: #c0392b;
 }
 
 .btn-produto.admin:hover {
   background: #a5281e;
 }
 
+/* === CAMPO INVÁLIDO (Borda vermelha) === */
+.invalid-field {
+  border: 2px solid red !important;
+}
+
 /* === RESPONSIVIDADE === */
 @media (max-width: 768px) {
   .produtos {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
   }
 }
 
 @media (max-width: 480px) {
   .produtos {
     grid-template-columns: 1fr;
+    gap: 25px;
   }
 }
